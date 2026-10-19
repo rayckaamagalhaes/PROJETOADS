@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PataForma – tutores, profissionais e serviços pet em um só lugar</title>
+  <meta name="description" content="PataForma conecta tutores de pets a estabelecimentos, profissionais autônomos e lojas, com avaliações, comentários e postagens.">
+
+  <!-- Fontes: Fraunces (títulos) + Nunito (textos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SVGs reutilizáveis -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-paw" viewBox="0 0 64 64">
+      <ellipse cx="14" cy="28" rx="7" ry="10" transform="rotate(-18 14 28)"/>
+      <ellipse cx="27" cy="16" rx="7" ry="10"/>
+      <ellipse cx="41" cy="17" rx="7" ry="10" transform="rotate(10 41 17)"/>
+      <ellipse cx="53" cy="30" rx="6" ry="9" transform="rotate(25 53 30)"/>
+      <path d="M32 31c-10 0-19 9-19 17 0 6 5 9 10 9 4 0 6-2 9-2s5 2 9 2c5 0 10-3 10-9 0-8-9-17-19-17z"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></symbol>
+    <symbol id="i-comment" viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.3 1.2 4.3 3.1 5.8L4 21l4.5-2.1c1.1.3 2.3.5 3.5.5 5.5 0 10-3.6 10-8s-4.5-8.4-10-8.4z"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.500L6 21z"/></symbol>
+    <symbol id="i-repost" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7-6.200-3.600L5.800 21l1.400-7L2 9.300l7-.8z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3 9h10V4l8 8-8 8v-5H3z"/></symbol>
+    <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2"/></symbol>
+  </svg>
+
+  <!-- ============ LOGIN ============ -->
+  <main class="login" id="view-login" data-view="login">
+    <div class="login__box">
+      <h1 class="logo" aria-label="PataForma">
+        <svg class="logo__paw" aria-hidden="true"><use href="#i-paw"/></svg>
+        <span class="logo__text">Pata<b>Forma</b></span>
+      </h1>
+
+      <form class="login__form" id="login-form" novalidate>
+        <label for="usuario">Digite seu usuário ou e-mail</label>
+        <input class="campo" id="usuario" name="usuario" type="text" autocomplete="username" required>
+
+        <label for="senha">Digite sua senha</label>
+        <input class="campo" id="senha" name="senha" type="password" autocomplete="current-password" required>
+
+        <div class="login__links">
+          <a href="#" data-aviso="Enviaremos um link de recuperação para o seu e-mail.">Esqueci a senha</a>
+          <a href="#" data-aviso="O cadastro será liberado na próxima etapa do projeto.">Crie sua conta caso não tenha</a>
+        </div>
+
+        <p class="login__erro" id="login-erro" role="alert" hidden>Preencha usuário e senha para entrar.</p>
+
+        <button class="btn-seta" type="submit" aria-label="Entrar">
+          <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ============ APLICATIVO (após login) ============ -->
+  <div class="app" id="app" hidden>
+
+    <header class="topo">
+      <button class="topo__menu" id="btn-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="avatar avatar--topo" href="#perfil" aria-label="Meu perfil"></a>
+      <p class="topo__ola">Olá, <span data-nome>visitante</span></p>
+      <p class="topo__chat">Chat <svg aria-hidden="true"><use href="#i-paw"/></svg></p>
+    </header>
+
+    <!-- MENU LATERAL -->
+    <div class="fundo-menu" id="fundo-menu" hidden></div>
+    <nav class="menu" id="menu" aria-label="Menu principal" aria-hidden="true">
+      <button class="menu__fechar" id="btn-fechar" aria-label="Fechar menu">X</button>
+      <ul class="menu__grupo">
+        <li><a href="#inicio" data-rota="inicio">Página Inicial</a></li>
+        <li><a href="#perfil" data-rota="perfil">Perfil</a></li>
+        <li><a href="#servicos" data-rota="servicos">Serviços/Estabelecimentos</a></li>
+        <li><a href="#profissionais" data-rota="profissionais">Profissionais</a></li>
+      </ul>
+      <ul class="menu__grupo menu__grupo--base">
+        <li><a href="#sobre" data-rota="sobre">Sobre nós</a></li>
+        <li><a href="#ajuda" data-rota="ajuda">Ajuda</a></li>
+        <li><a href="#config" data-rota="config">Configurações</a></li>
+      </ul>
+    </nav>
+
+    <div class="conteudo">
+
+      <!-- PÁGINA INICIAL: feed + chat -->
+      <section class="pagina pagina--inicio" data-view="inicio" aria-labelledby="t-inicio">
+        <h2 id="t-inicio" class="sr-only">Página inicial</h2>
+
+        <div class="feed" id="feed"></div>
+
+        <aside class="chat" aria-label="Conversas">
+          <h3 class="chat__titulo">Chat <svg aria-hidden="true"><use href="#i-paw"/></svg></h3>
+          <ul class="chat__lista" id="chat-lista"></ul>
+        </aside>
+      </section>
+
+      <!-- PERFIL -->
+      <section class="pagina" data-view="perfil" aria-labelledby="t-perfil">
+        <div class="perfil">
+          <div class="avatar avatar--grande" aria-hidden="true"></div>
+          <div>
+            <h2 id="t-perfil" class="perfil__nome" data-nome>User</h2>
+            <p class="perfil__bio">bio</p>
+          </div>
+        </div>
+        <div class="centro">
+          <a class="pilula" href="#pets">Meus pets</a>
+        </div>
+      </section>
+
+      <!-- MEUS PETS -->
+      <section class="pagina" data-view="pets" aria-labelledby="t-pets">
+        <div class="centro"><h2 id="t-pets" class="pilula pilula--titulo">Meus pets</h2></div>
+        <ul class="pets" id="pets-lista"></ul>
+
+        <article class="pet-detalhe" id="pet-detalhe" hidden aria-live="polite">
+          <div class="pet-detalhe__foto">
+            <div class="avatar avatar--pet" aria-hidden="true"></div>
+            <span class="rotulo" id="pet-nome-rotulo"></span>
+          </div>
+          <ul class="pet-detalhe__dados">
+            <li><span>nome:</span> <b id="pd-nome"></b></li>
+            <li><span>sexo:</span> <b id="pd-sexo"></b></li>
+            <li><span>raça:</span> <b id="pd-raca"></b></li>
+            <li><span>peso:</span> <b id="pd-peso"></b></li>
+            <li><span>tamanho:</span> <b id="pd-tamanho"></b></li>
+            <li><span>temperamento:</span> <b id="pd-temp"></b></li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- SERVIÇOS E ESTABELECIMENTOS -->
+      <section class="pagina" data-view="servicos" aria-labelledby="t-servicos">
+        <h2 id="t-servicos" class="titulo-pagina">Serviços e estabelecimentos</h2>
+        <ul class="lista" id="lista-servicos"></ul>
+      </section>
+
+      <!-- PROFISSIONAIS -->
+      <section class="pagina" data-view="profissionais" aria-labelledby="t-prof">
+        <h2 id="t-prof" class="titulo-pagina">Profissionais</h2>
+        <ul class="lista" id="lista-profissionais"></ul>
+      </section>
+
+      <!-- SOBRE NÓS -->
+      <section class="pagina" data-view="sobre" aria-labelledby="t-sobre">
+        <h2 id="t-sobre" class="titulo-pagina">Sobre nós</h2>
+        <div class="texto">
+          <p>A PataForma é uma plataforma digital que conecta tutores de pets a estabelecimentos, profissionais autônomos e lojas do segmento pet.</p>
+          <p>Muitos profissionais do setor atuam por conta própria e têm dificuldade de divulgar seus serviços. Os tutores, por sua vez, dependem de indicações informais para encontrar gente qualificada.</p>
+          <p>Reunimos em um único espaço perfis, avaliações, comentários e postagens sobre os animais de estimação e suas necessidades, além de uma área para criadores de conteúdo.</p>
+          <p>Projeto integrador da FATEC Antônio Russo, curso de Análise e Desenvolvimento de Sistemas, orientado pelo Professor Mauro.</p>
+        </div>
+
+        <h3 class="subtitulo">Redes sociais</h3>
+        <ul class="redes">
+          <li><a href="#" data-aviso="Link do Instagram de Gabriel Cardoso em breve."><svg aria-hidden="true"><use href="#i-insta"/></svg><span>Gabriel Cardoso</span></a></li>
+          <li><a href="#" data-aviso="Link do Instagram de Gabriel Gustavo em breve."><svg aria-hidden="true"><use href="#i-insta"/></svg><span>Gabriel Gustavo</span></a></li>
+          <li><a href="#" data-aviso="Link do Instagram de Gustavo Cardoso em breve."><svg aria-hidden="true"><use href="#i-insta"/></svg><span>Gustavo Cardoso</span></a></li>
+          <li><a href="#" data-aviso="Link do Instagram de Kathyéllen Cardoso em breve."><svg aria-hidden="true"><use href="#i-insta"/></svg><span>Kathyéllen Cardoso</span></a></li>
+          <li><a href="#" data-aviso="Link do Instagram de Raycka Magalhães em breve."><svg aria-hidden="true"><use href="#i-insta"/></svg><span>Raycka Magalhães</span></a></li>
+        </ul>
+      </section>
+
+      <!-- AJUDA -->
+      <section class="pagina" data-view="ajuda" aria-labelledby="t-ajuda">
+        <h2 id="t-ajuda" class="titulo-pagina">Como podemos ajudar?</h2>
+        <h3 class="subtitulo">Deixe aqui o seu feedback</h3>
+        <form class="feedback" id="feedback-form">
+          <label for="feedback-texto" class="sr-only">Seu feedback</label>
+          <textarea id="feedback-texto" rows="6" required></textarea>
+          <button class="feedback__enviar" type="submit" aria-label="Enviar feedback">
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </button>
+        </form>
+        <p class="feedback__ok" id="feedback-ok" role="status" hidden>Feedback enviado. Obrigado por ajudar a melhorar a PataForma.</p>
+      </section>
+
+      <!-- CONFIGURAÇÕES -->
+      <section class="pagina" data-view="config" aria-labelledby="t-config">
+        <h2 id="t-config" class="sr-only">Configurações</h2>
+        <ul class="config">
+          <li><button type="button" data-aviso="Privacidade e segurança: em breve.">Privacidade e segurança</button></li>
+          <li><button type="button" data-aviso="Seus itens salvos aparecerão aqui.">Salvos</button></li>
+          <li><button type="button" data-aviso="Personalização: em breve.">Personalização</button></li>
+          <li><button type="button" data-aviso="Dados da sua conta: em breve.">Sua Conta</button></li>
+          <li><button type="button" data-aviso="Planos avançados com lista de prioridade: em breve.">Upgrade</button></li>
+          <li><button type="button" data-aviso="Selo de verificação para profissionais: em breve.">Selo de Verificação</button></li>
+          <li><button type="button" data-aviso="Troca de conta: em breve.">Mudar de Conta</button></li>
+          <li class="config__separador"><button type="button" id="btn-excluir">Excluir Conta</button></li>
+          <li><button type="button" id="btn-logout">Logout</button></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Aviso rápido (toast) -->
+  <div class="aviso" id="aviso" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

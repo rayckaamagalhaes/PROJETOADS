@@ -1,2 +1,19 @@
-# Auto detect text files and perform LF normalization
+# Normaliza o fim de linha: o Git decide automaticamente
+# (evita conflitos entre Windows, Linux e macOS na equipe)
 * text=auto
+
+# Arquivos de código sempre com LF no repositório
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+
+# Imagens são binárias: o Git não deve tentar converter nem comparar linha a linha
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.pdf  binary
